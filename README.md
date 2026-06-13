@@ -48,35 +48,102 @@ An enterprise compliance agent that monitors Microsoft 365 content for DPDP Act 
 ## Architecture
 
 ![Architecture Diagram](Images/Architecture.png)
+![Architecture Diagram Alternative](Images/Architecture%2001.png)
 
-```
-Microsoft 365 Copilot Chat
-        │
-        │  Declarative Agent (appPackage/)
-        │  ├── EmbeddedKnowledge  — DPDP Act + ISO 27001 text files
-        │  ├── OneDriveAndSharePoint  — Work IQ: searches user's M365 content
-        │  └── Actions → apiPlugin.json
-        │                  ├── openapi.yaml → Backend API (5 functions)
-        │                  └── mcp-openapi.yaml → MCP Server API (6 functions)
-        │                        │                          │
-        │                        ▼                          ▼
-        │            CompliYUG Backend            CompliYUG MCP Server
-        │            (Express / Node 24)          (MCP SDK + Express)
-        │            Port 3000                    Port 3001
-        │            ├── POST /api/classify       ├── SSE /sse (MCP transport)
-        │            ├── POST /api/gap-analysis   ├── GET  /api/mcp/policies
-        │            ├── POST /api/breach/notify  ├── POST /api/mcp/findings
-        │            ├── GET  /api/audit-report   ├── GET  /api/mcp/status
-        │            ├── GET  /api/dashboard      ├── GET  /api/mcp/regulatory-updates
-        │            └── POST /api/scan           ├── POST /api/mcp/breaches
-        │                     │                   └── GET  /api/mcp/audit-trail
-        │           ┌─────────┴─────────┐
-        │           ▼                   ▼
-        │  Microsoft Graph API    Azure AI Foundry
-        │  SharePoint / Mail      Risk scoring (Foundry IQ)
-        │  OneDrive / Teams
-        │
-        └── Teams Incoming Webhook → Compliance channel alerts
+### System Flow & Components
+
+```mermaid
+graph TD
+    %% User Personas
+    subgraph Users [" "]
+        U1(("👤\nM365 User\n(Copilot Chat)"))
+        U2(("👨‍💼\nCompliance Officer\n(Dashboard)"))
+    end
+
+    %% External Data Sources
+    subgraph M365_Tenant ["Microsoft 365 Tenant"]
+        SP[("SharePoint")]
+        OD[("OneDrive")]
+        OUT[("Outlook")]
+        TEAMS(("Teams Channel\n(Alerts)"))
+    end
+
+    %% Copilot Layer
+    subgraph Copilot_Env ["Microsoft 365 Copilot Environment"]
+        CC(("💬\nCopilot Chat"))
+        
+        subgraph DA ["Declarative Agent (CompliYUG)"]
+            EK[("📚 Embedded Knowledge\n(DPDP & ISO Texts)")]
+            WIQ(("🔍 Work IQ\n(OneDrive & SharePoint)"))
+            PLUG[("🔌 Actions Plugin\n(apiPlugin.json)")]
+        end
+        
+        CC <--> DA
+    end
+
+    %% Core Application Layer
+    subgraph App_Layer ["CompliYUG Hosted Services"]
+        
+        subgraph Backend ["CompliYUG Backend (Node.js/Express)"]
+            API_C[("/api/classify")]
+            API_G[("/api/gap-analysis")]
+            API_B[("/api/breach/notify")]
+            
+            subgraph Services ["Core Services"]
+                PII[("PII Classifier")]
+                GAP[("Gap Analyzer")]
+                REP[("Audit Reporter")]
+            end
+        end
+
+        subgraph MCP ["CompliYUG MCP Server (Port 3001)"]
+            MCP_SSE(("SSE / REST Bridge"))
+            STORE[("💾 JSON File Store\n(Findings, Policies, Breaches)")]
+        end
+        
+        DASH(("📊 Local Dashboard\n(HTML/CSS/JS)"))
+    end
+
+    %% Azure / AI Services
+    subgraph Azure_Env ["Azure Cloud Services"]
+        ENTRA(("🔐 Microsoft Entra ID\n(OAuth / Token Validation)"))
+        FOUNDRY(("🧠 Azure AI Foundry\n(Risk Scoring)"))
+        GRAPH(("🌐 Microsoft Graph API"))
+    end
+
+    %% Connections
+    U1 -. "Asks Compliance Questions" .-> CC
+    U2 -. "Monitors Risk" .-> DASH
+    
+    DA -. "Validates Token" .-> ENTRA
+    PLUG -. "OpenAPI Bridge" .-> Backend
+    PLUG -. "MCP OpenAPI Bridge" .-> MCP_SSE
+    
+    Backend <--> MCP_SSE
+    MCP_SSE <--> STORE
+    
+    DASH <--> Backend
+    
+    Backend -. "Searches Evidence" .-> GRAPH
+    GRAPH -. "Fetches Content" .-> M365_Tenant
+    Backend -. "Sends Webhook" .-> TEAMS
+    
+    Backend -. "Risk Scoring" .-> FOUNDRY
+    
+    %% Styling to mimic the reference image colors/layout
+    classDef azure fill:#0078D4,color:white,stroke:#005A9E,stroke-width:2px;
+    classDef copilot fill:#E3E3FD,stroke:#5C2D91,stroke-width:2px;
+    classDef backend fill:#E6F4EA,stroke:#1E8E3E,stroke-width:2px;
+    classDef mcp fill:#FFF3E0,stroke:#E65100,stroke-width:2px;
+    classDef user fill:#FCE8E6,stroke:#D93025,stroke-width:2px;
+    classDef db fill:#F3F2F1,stroke:#605E5C,stroke-width:2px;
+
+    class ENTRA,FOUNDRY,GRAPH azure;
+    class CC,DA,EK,WIQ,PLUG copilot;
+    class Backend,API_C,API_G,API_B,Services,PII,GAP,REP,DASH backend;
+    class MCP,MCP_SSE,STORE mcp;
+    class U1,U2 user;
+    class SP,OD,OUT,TEAMS db;
 ```
 
 ---
