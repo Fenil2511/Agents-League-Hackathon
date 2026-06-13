@@ -8,6 +8,23 @@ An enterprise compliance agent that monitors Microsoft 365 content for DPDP Act 
 
 ![Features Overview](Images/Features.png)
 
+### 👤 Built by [Fenil Chauhan](https://www.linkedin.com/in/itfenil/)
+
+> **GRC Professional · Certified Data Protection Officer · Data Auditor**
+>
+> CompliYUG is not just a hackathon prototype — it is built by a practising compliance professional who audits enterprises for a living. Fenil brings real-world regulatory expertise as a **Certified Lead Auditor** across multiple international management system standards:
+>
+> | Certification | Standard |
+> |---|---|
+> | 🛡️ Lead Auditor | **ISO/IEC 27001:2022** — Information Security Management Systems (ISMS) |
+> | 🔐 Lead Auditor | **ISO/IEC 27701:2025** — Privacy Information Management Systems (PIMS) |
+> | 📋 Lead Auditor | **ISO 9001:2015** — Quality Management Systems |
+> | ⚙️ Lead Auditor | **ISO/IEC 20000-1:2018** — IT Service Management Systems |
+> | 📜 Certified | **Data Protection Officer (DPO)** |
+> | 🔍 Certified | **Data Auditor** |
+>
+> This domain expertise directly shaped CompliYUG's 47 ISO control mappings, 17 DPDP Act requirement checks, and the 72-hour breach notification workflow — ensuring the agent reflects how compliance actually works in the field, not just in theory.
+
 ---
 
 ## What This Agent Does
@@ -407,5 +424,7 @@ Invoke-RestMethod -Method Get -Uri "http://localhost:3001/api/mcp/regulatory-upd
 | ![Alert](Images/Alert%2001.png) | ![Agent Detail](Images/Agent%20in%20copilot%2002.png) |
 
 ---
+
+*Built by **Fenil Chauhan** — GRC Professional, Certified DPO & Lead Auditor (ISO 27001 · 27701 · 9001 · 20000-1)*
 
 *Built for Agents League Hackathon — Battle #3: Enterprise Agents for Microsoft 365 Copilot*
