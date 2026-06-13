@@ -2,7 +2,7 @@
 
 ![CompliYUG Banner](Images/Banner.png)
 
-**Track: Battle #3 — Enterprise Agents for Microsoft 365 Copilot**
+**Track: Enterprise Agents for Microsoft 365 Copilot**
 
 An enterprise compliance agent that monitors Microsoft 365 content for DPDP Act 2023 and ISO/IEC 27001:2022 risks. Built as a **Declarative Agent** in M365 Copilot Chat, backed by a live Node.js compliance engine and an **MCP Server** for persistent compliance data operations.
 
