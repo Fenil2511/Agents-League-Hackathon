@@ -22,6 +22,8 @@ An enterprise compliance agent that monitors Microsoft 365 content for DPDP Act 
 > | ⚙️ Lead Auditor | **ISO/IEC 20000-1:2018** — IT Service Management Systems |
 > | 📜 Certified | **Data Protection Officer (DPO)** |
 > | 🔍 Certified | **Data Auditor** |
+> | ☁️ Certified | **Microsoft Certified: Security, Compliance, and Identity Fundamentals (SC-900)** |
+> | 🛡️ Certified | **Microsoft Certified: Information Security Administrator Associate (SC-401)** |
 >
 > This domain expertise directly shaped CompliYUG's 47 ISO control mappings, 17 DPDP Act requirement checks, and the 72-hour breach notification workflow — ensuring the agent reflects how compliance actually works in the field, not just in theory.
 
@@ -425,6 +427,6 @@ Invoke-RestMethod -Method Get -Uri "http://localhost:3001/api/mcp/regulatory-upd
 
 ---
 
-*Built by **Fenil Chauhan** — GRC Professional, Certified DPO & Lead Auditor (ISO 27001 · 27701 · 9001 · 20000-1)*
+*Built by **Fenil Chauhan** — GRC Professional, Microsoft Certified Security Admin, Certified DPO & Lead Auditor (ISO 27001 · 27701 · 9001 · 20000-1)*
 
 *Built for Agents League Hackathon — Battle #3: Enterprise Agents for Microsoft 365 Copilot*
