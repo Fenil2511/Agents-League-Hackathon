@@ -1,0 +1,77 @@
+# DPDP Act 2023 Knowledge Base
+
+## Scope and purpose
+
+This knowledge file summarizes the Digital Personal Data Protection Act, 2023 and the accompanying 2025 rules excerpt provided in the source material. It is intended for document-grounded compliance questioning and gap analysis.
+
+## Core definitions
+
+- Personal data means data about an identifiable individual.
+- Digital personal data means personal data in digital form.
+- Data Fiduciary is the person that determines the purpose and means of processing.
+- Data Principal is the individual to whom the personal data relates.
+- Processing includes collection, storage, use, sharing, disclosure, erasure, and destruction.
+- Consent Manager is a registered intermediary that helps a Data Principal give, manage, review, and withdraw consent.
+
+## Lawful processing
+
+- Processing must be for a lawful purpose.
+- Lawful purpose can be consent-based or based on certain legitimate uses.
+- Consent must be free, specific, informed, unconditional, unambiguous, and supported by a clear affirmative action.
+- The consent request and notice must be in clear and plain language.
+
+## Notice and transparency
+
+- The Data Fiduciary must give notice describing the personal data, purpose, rights-exercise method, and grievance route.
+- The notice must explain how the Data Principal can withdraw consent and contact the organization.
+- The Data Fiduciary must publish business contact information for a person who can answer questions about processing.
+
+## General obligations of a Data Fiduciary
+
+- The Data Fiduciary remains responsible even when a Data Processor is used.
+- Reasonable security safeguards are required.
+- Personal data breaches must be notified to affected Data Principals and to the Board.
+- Personal data must be erased when consent is withdrawn or the specified purpose is no longer being served, unless retention is required by law.
+- Grievance redressal must be available.
+
+## Children and persons with disability
+
+- Verifiable parental consent is required before processing personal data of a child.
+- The Act restricts tracking, behavioural monitoring, and targeted advertising aimed at children.
+- Special treatment applies where a person with disability has a lawful guardian.
+
+## Rights of the Data Principal
+
+- Right to access a summary of personal data and processing activities.
+- Right to correction, completion, updating, and erasure.
+- Right to grievance redressal.
+- Right to nominate another individual in the event of death or incapacity.
+
+## Special provisions and exemptions
+
+- Cross-border transfer may be restricted by Central Government notification.
+- Certain processing is exempt for legal claims, courts, law enforcement, research, archiving, statistics, and other prescribed circumstances.
+- The State may process personal data for certain prescribed public purposes, including subsidies, benefits, services, certificates, licences, or permits.
+
+## Significant Data Fiduciary themes
+
+- The Central Government may notify Significant Data Fiduciaries based on factors such as data volume, sensitivity, rights risk, sovereign impact, electoral risk, security, and public order.
+- Significant Data Fiduciaries have additional obligations, including data protection impact assessment, audit, and other measures.
+
+## Notable rule excerpts from the 2025 rules
+
+- Rule 3: notice must be understandable on its own and must describe the data, purpose, withdrawal path, rights path, and complaint path.
+- Rule 6: reasonable security safeguards include encryption, access control, logging, backups, retention, contracts, and technical and organizational measures.
+- Rule 7: breach notice must include the nature, extent, timing, consequences, mitigation, and contact information.
+- Rule 8: erasure timing and reminders are prescribed; some records and logs must be retained for at least one year in specified cases.
+- Rule 9: contact information for processing questions must be published.
+- Rules 10 and 11: verifiable consent for children and persons with disability with lawful guardians.
+- Rules 13 and 14: additional obligations for Significant Data Fiduciaries and rights publication requirements.
+
+## Suggested compliance question types
+
+- Does the notice explain what data is processed and why?
+- Is there a lawful basis and documented consent trail?
+- Are breach response and retention controls documented?
+- Are child-data and guardian requirements respected?
+- Are data principal rights and grievance routes clearly published?

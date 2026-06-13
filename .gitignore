@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+.npm
+
+# Environment / secrets — NEVER commit these
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.pfx
+env/.env.dev.user
+
+# Build outputs
+dist/
+build/
+.next/
+appPackage/build/
+
+# MCP server persistent data
+mcp-server/data/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Temporary zip exports (submission zip is built separately)
+*.zip
+
+# Source PDFs (large binary, tracked separately)
+*.pdf
+
+# Large media files (hosted externally for submission)
+*.mov
+*.mp4
+
+# Lock files (regenerated on npm install)
+package-lock.json
+

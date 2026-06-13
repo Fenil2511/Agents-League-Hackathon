@@ -1,0 +1,189 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.1/schema.json",
+  "schema_version": "v2.1",
+  "namespace": "compliyug",
+  "name_for_human": "CompliYUG Compliance Actions",
+  "description_for_human": "Live compliance analysis powered by the DPDP Act 2023 and ISO/IEC 27001:2022 backend. Classifies documents for PII, runs gap analysis on policy text, files breach notifications, generates audit reports, and manages compliance data via MCP.",
+  "description_for_model": "Use this plugin when the user wants to: (1) classify a document or email for PII and compliance risk — call classifyDocument with the pasted content; (2) run a gap analysis of their policy text against DPDP Act 2023 or ISO 27001:2022 controls — call runGapAnalysis; (3) file or check a breach notification workflow — call fileBreachNotification with the breach details; (4) see current compliance dashboard statistics — call getDashboardStats; (5) generate a full compliance audit report — call getAuditReport; (6) look up compliance policies/requirements — call readCompliancePolicies; (7) record a compliance finding — call writeComplianceFinding; (8) check compliance posture — call readComplianceStatus; (9) get regulatory updates — call readRegulatoryUpdates; (10) record a breach — call writeBreachRecord; (11) review audit trail — call readAuditTrail. Prefer this plugin over embedded knowledge answers when the user provides actual document content or policy text to analyse.",
+  "functions": [
+    {
+      "name": "classifyDocument",
+      "description": "Classifies document or message content for Indian PII (Aadhaar, PAN, credit card, passport, phone, email, IFSC, GSTIN) and sensitive keywords. Returns classification label (PUBLIC/INTERNAL/CONFIDENTIAL/RESTRICTED), risk score 0-100, masked PII samples, and applicable DPDP Act obligations.",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$",
+          "properties": {
+            "title": "classificationLabel",
+            "subtitle": "riskLevel"
+          }
+        }
+      }
+    },
+    {
+      "name": "runGapAnalysis",
+      "description": "Analyses policy text against 47 ISO 27001:2022 Annex A controls and 17 DPDP Act 2023 requirements. Returns compliance percentages, identified control gaps, critical missing controls, and step-by-step remediation guidance for each gap.",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$",
+          "properties": {
+            "title": "overallCompliancePercent",
+            "subtitle": "criticalGaps"
+          }
+        }
+      }
+    },
+    {
+      "name": "fileBreachNotification",
+      "description": "Initiates the DPDP Act Section 40 breach notification workflow. Calculates the 72-hour reporting deadline, generates board initial alert and data principal notification artifacts, and optionally dispatches Teams alerts and emails to the Data Protection Board.",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$",
+          "properties": {
+            "title": "reportDeadline",
+            "subtitle": "hoursRemaining"
+          }
+        }
+      }
+    },
+    {
+      "name": "getDashboardStats",
+      "description": "Returns current compliance KPIs from all session activity: scan count, average risk score, overall compliance percentage, critical gap count, and a recent activity feed.",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$",
+          "properties": {
+            "title": "overallCompliancePercent",
+            "subtitle": "criticalGapsCount"
+          }
+        }
+      }
+    },
+    {
+      "name": "getAuditReport",
+      "description": "Generates a comprehensive audit report from all scans, classifications, and gap analyses. Returns executive summary, ISO 27001 and DPDP compliance summaries, data classification breakdown, and prioritised recommendations.",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$",
+          "properties": {
+            "title": "reportId",
+            "subtitle": "generatedAt"
+          }
+        }
+      }
+    },
+    {
+      "name": "readCompliancePolicies",
+      "description": "Retrieves compliance policy requirements for DPDP Act 2023 and ISO 27001:2022 from the MCP compliance server. Returns structured policy data with section references, titles, and descriptions.",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$",
+          "properties": {
+            "title": "framework",
+            "subtitle": "count"
+          }
+        }
+      }
+    },
+    {
+      "name": "writeComplianceFinding",
+      "description": "Records a new compliance finding or violation in the MCP compliance database. Creates a persistent record with severity, framework reference, affected asset, and remediation plan.",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$",
+          "properties": {
+            "title": "id",
+            "subtitle": "severity"
+          }
+        }
+      }
+    },
+    {
+      "name": "readComplianceStatus",
+      "description": "Gets the current compliance posture summary from the MCP compliance server, including total findings, open issues by severity, breach count, and a computed compliance health score (0-100).",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$",
+          "properties": {
+            "title": "complianceHealthScore",
+            "subtitle": "openFindings"
+          }
+        }
+      }
+    },
+    {
+      "name": "readRegulatoryUpdates",
+      "description": "Fetches the latest regulatory updates and guidance related to DPDP Act 2023 and ISO 27001:2022 from the MCP compliance server, with impact levels and source references.",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$",
+          "properties": {
+            "title": "count",
+            "subtitle": "updates"
+          }
+        }
+      }
+    },
+    {
+      "name": "writeBreachRecord",
+      "description": "Creates a new data breach incident record in the MCP compliance database. Automatically calculates the 72-hour DPDP Act Section 40 reporting deadline.",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$",
+          "properties": {
+            "title": "id",
+            "subtitle": "reportDeadline72h"
+          }
+        }
+      }
+    },
+    {
+      "name": "readAuditTrail",
+      "description": "Reads the audit trail of all compliance operations performed through the MCP server. Returns chronological log of actions for governance and accountability.",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$",
+          "properties": {
+            "title": "count",
+            "subtitle": "entries"
+          }
+        }
+      }
+    }
+  ],
+  "runtimes": [
+    {
+      "type": "OpenApi",
+      "auth": {
+        "type": "None"
+      },
+      "spec": {
+        "url": "openapi.yaml"
+      },
+      "run_for_functions": [
+        "classifyDocument",
+        "runGapAnalysis",
+        "fileBreachNotification",
+        "getDashboardStats",
+        "getAuditReport"
+      ]
+    },
+    {
+      "type": "OpenApi",
+      "auth": {
+        "type": "None"
+      },
+      "spec": {
+        "url": "mcp-openapi.yaml"
+      },
+      "run_for_functions": [
+        "readCompliancePolicies",
+        "writeComplianceFinding",
+        "readComplianceStatus",
+        "readRegulatoryUpdates",
+        "writeBreachRecord",
+        "readAuditTrail"
+      ]
+    }
+  ]
+}
+

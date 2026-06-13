@@ -1,0 +1,56 @@
+DPDP Compliance Workflows
+
+Breach Notification
+Trigger Logic
+Immediate
+- Requirement: Notify Board and affected Data Principals without delay.
+- Obligation: Dispatch initial alert immediately upon breach detection.
+
+72HourSLA
+- Requirement: Submit comprehensive breach report to Board within 72 hours.
+- Obligation: If deadline cannot be met, generate extension request with reasons.
+
+Payloads
+Board Initial Alert Fields
+- Nature of breach
+- Extent of breach
+- Timing
+- Location
+- Likely impact
+
+Board Comprehensive Report Fields
+- Updated breach details
+- Events and circumstances
+- Mitigation measures
+- Findings on responsible entity
+- Remedial measures
+- Status of notifications to Data Principals
+
+Data Principal Notification Fields
+- Nature, extent, timing of breach
+- Consequences relevant to user
+- Mitigation measures taken
+- User safety actions (for example reset password, enable MFA)
+- Business contact info of DPO
+- Formatting: Concise, clear, plain language
+
+Security Safeguards
+Encryption and Tokenization
+- Rule: DPDP Rules 2025, Rule 6(1)(a)
+- Requirement: Encrypt, obfuscate, mask, or tokenize personal data.
+- Obligation: Use Azure Key Vault for secrets; mask identifiers in UI.
+
+Access Controls
+- Rule: DPDP Rules 2025, Rule 6(1)(b)
+- Requirement: Strictly control access to computer resources.
+- Obligation: Implement Entra ID + OAuth2 RBAC checks before agent actions.
+
+Access Visibility
+- Rule: DPDP Rules 2025, Rule 6(1)(c)
+- Requirement: Maintain logs, monitoring, and review of access.
+- Obligation: Integrate Azure Application Insights or Sentinel for telemetry.
+
+Data Resilience
+- Rule: DPDP Rules 2025, Rule 6(1)(d)
+- Requirement: Ensure continued processing if confidentiality, integrity, or availability is compromised.
+- Obligation: Configure backups + failover redundancy in Azure App Service or Functions.

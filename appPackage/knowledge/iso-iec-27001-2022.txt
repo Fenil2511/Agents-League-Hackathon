@@ -1,0 +1,68 @@
+ISO/IEC 27001:2022 Knowledge Base
+
+Scope and intent
+This knowledge file summarizes the ISO/IEC 27001:2022 requirements excerpt provided in the source material. It is intended for compliance gap analysis and control-oriented questioning.
+
+Core ISMS concepts
+- The standard specifies requirements for establishing, implementing, maintaining, and continually improving an information security management system.
+- The ISMS must be tailored to the organization’s context, needs, size, structure, and risk environment.
+- The standard is aligned with Annex SL and is compatible with other management system standards.
+
+Clause 4 context
+- Determine internal and external issues relevant to the ISMS.
+- Determine interested parties and their requirements.
+- Define the ISMS scope as documented information.
+- Establish, implement, maintain, and continually improve the ISMS and its interactions.
+
+Clause 5 leadership
+- Top management must show leadership and commitment.
+- Information security policy and objectives must align with strategic direction.
+- Roles, responsibilities, and authorities must be assigned and communicated.
+
+Clause 6 planning
+- Determine information security risks and opportunities.
+- Apply an information security risk assessment process with consistent criteria.
+- Apply risk treatment and produce a Statement of Applicability.
+- Establish objectives, resources, responsibilities, timing, and evaluation methods.
+
+Clause 7 support
+- Provide the resources required for the ISMS.
+- Ensure competence, awareness, communication, and controlled documented information.
+
+Clause 8 operation
+- Plan and control operational processes.
+- Perform information security risk assessments at planned intervals or when changes occur.
+- Implement the risk treatment plan.
+
+Clause 9 performance evaluation
+- Monitor, measure, analyze, and evaluate the ISMS and its controls.
+- Conduct internal audits at planned intervals.
+- Perform management reviews and record inputs and outputs.
+
+Clause 10 improvement
+- Continually improve the suitability, adequacy, and effectiveness of the ISMS.
+- Address nonconformities with corrective action and evidence of effectiveness.
+
+Annex A control themes in the provided excerpt
+Organizational controls
+- Policies for information security.
+- Roles and responsibilities.
+- Segregation of duties.
+- Supplier security, cloud services, records protection, privacy and PII protection.
+- Incident management, evidence collection, business continuity, and compliance checks.
+
+People controls
+- Screening, terms of employment, awareness and training, confidentiality, remote working, and event reporting.
+
+Physical controls
+- Physical perimeters, entry controls, secure areas, monitoring, environmental protection, asset protection, storage media, cabling, maintenance, and disposal.
+
+Technological controls
+- Endpoint protection, privileged access, information access restriction, source code access, secure authentication, capacity management, malware protection, vulnerability management, configuration management, information deletion, masking, DLP, backup, redundancy, logging, monitoring, clock sync, privileged utilities, software installation, network security, cryptography, secure development, application security, secure architecture, secure coding, security testing, outsourced development, environment separation, change management, test information, and audit-test protection.
+
+Suggested compliance question types
+- Is the ISMS scope documented and current?
+- Are risks assessed and treated with a documented statement of applicability?
+- Are logs, backups, access control, and incident response defined?
+- Are privacy and PII obligations mapped to relevant controls?
+- Are supplier and cloud-security controls in place?

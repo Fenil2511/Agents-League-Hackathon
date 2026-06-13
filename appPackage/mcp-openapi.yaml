@@ -1,0 +1,354 @@
+openapi: 3.0.3
+info:
+  title: CompliYUG MCP Compliance Server API
+  description: >
+    MCP-backed compliance data operations for the DPDP Act 2023 and ISO/IEC 27001:2022.
+    Provides read/write access to compliance policies, findings, regulatory updates,
+    breach records, and audit trails. Secured via Microsoft Entra ID OAuth 2.0.
+  version: 1.0.0
+  contact:
+    name: CompliYUG
+servers:
+  - url: https://compliyug-mcp.azurewebsites.net
+    description: Azure App Service (MCP server)
+  - url: http://localhost:3001
+    description: Local development
+
+paths:
+  /api/mcp/policies:
+    get:
+      operationId: readCompliancePolicies
+      summary: Read compliance policy requirements
+      description: >
+        Retrieves compliance policy requirements for DPDP Act 2023 and/or
+        ISO/IEC 27001:2022. Returns structured policy data with section
+        references, titles, and descriptions.
+      parameters:
+        - name: framework
+          in: query
+          schema:
+            type: string
+            enum: [all, dpdp, iso27001]
+            default: all
+          description: Which framework to retrieve
+      responses:
+        '200':
+          description: Policy requirements
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  dpdp:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PolicyRequirement'
+                  iso27001:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IsoControl'
+        '401':
+          description: Unauthorized
+
+  /api/mcp/findings:
+    post:
+      operationId: writeComplianceFinding
+      summary: Record a compliance finding
+      description: >
+        Creates a persistent compliance finding record with severity,
+        framework reference, affected asset, and remediation plan.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FindingInput'
+      responses:
+        '201':
+          description: Finding created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Finding'
+        '401':
+          description: Unauthorized
+
+  /api/mcp/status:
+    get:
+      operationId: readComplianceStatus
+      summary: Get compliance posture summary
+      description: >
+        Returns total findings, open issues by severity, breach count,
+        and a computed compliance health score (0-100).
+      responses:
+        '200':
+          description: Compliance status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceStatus'
+
+  /api/mcp/regulatory-updates:
+    get:
+      operationId: readRegulatoryUpdates
+      summary: Get latest regulatory updates
+      description: >
+        Retrieves latest regulatory updates and guidance for DPDP Act 2023
+        and ISO 27001:2022 with impact levels and source references.
+      parameters:
+        - name: impactLevel
+          in: query
+          schema:
+            type: string
+            enum: [all, high, medium, low]
+            default: all
+      responses:
+        '200':
+          description: Regulatory updates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  updates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RegulatoryUpdate'
+
+  /api/mcp/breaches:
+    post:
+      operationId: writeBreachRecord
+      summary: Create a breach incident record
+      description: >
+        Records a new data breach and calculates the 72-hour DPDP Act
+        Section 40 reporting deadline automatically.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BreachInput'
+      responses:
+        '201':
+          description: Breach record created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BreachRecord'
+
+  /api/mcp/audit-trail:
+    get:
+      operationId: readAuditTrail
+      summary: Read compliance audit trail
+      description: >
+        Returns chronological log of all compliance operations for
+        governance and accountability.
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            maximum: 200
+      responses:
+        '200':
+          description: Audit trail entries
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  entries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AuditEntry'
+
+components:
+  securitySchemes:
+    entraIdOAuth:
+      type: oauth2
+      description: Microsoft Entra ID OAuth 2.0
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/token
+          scopes:
+            api://compliyug-mcp/.default: Access CompliYUG MCP Server
+
+  schemas:
+    PolicyRequirement:
+      type: object
+      properties:
+        id:
+          type: string
+        section:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+
+    IsoControl:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        category:
+          type: string
+
+    FindingInput:
+      type: object
+      required:
+        - title
+        - severity
+      properties:
+        title:
+          type: string
+          description: Short title for the compliance finding
+        description:
+          type: string
+        severity:
+          type: string
+          enum: [critical, high, medium, low]
+        framework:
+          type: string
+          enum: [DPDP, ISO27001, Both]
+        controlId:
+          type: string
+        affectedAsset:
+          type: string
+        remediationPlan:
+          type: string
+
+    Finding:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        type:
+          type: string
+        title:
+          type: string
+        severity:
+          type: string
+        framework:
+          type: string
+        controlId:
+          type: string
+        affectedAsset:
+          type: string
+        status:
+          type: string
+        remediationPlan:
+          type: string
+
+    ComplianceStatus:
+      type: object
+      properties:
+        totalFindings:
+          type: integer
+        openFindings:
+          type: integer
+        criticalOpen:
+          type: integer
+        highOpen:
+          type: integer
+        totalBreaches:
+          type: integer
+        openBreaches:
+          type: integer
+        complianceHealthScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        lastUpdated:
+          type: string
+          format: date-time
+
+    RegulatoryUpdate:
+      type: object
+      properties:
+        id:
+          type: string
+        date:
+          type: string
+        title:
+          type: string
+        summary:
+          type: string
+        source:
+          type: string
+        impact:
+          type: string
+          enum: [high, medium, low]
+
+    BreachInput:
+      type: object
+      required:
+        - natureOfBreach
+      properties:
+        natureOfBreach:
+          type: string
+        extentOfBreach:
+          type: string
+        location:
+          type: string
+        likelyImpact:
+          type: string
+        detectedAt:
+          type: string
+          format: date-time
+
+    BreachRecord:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        natureOfBreach:
+          type: string
+        extentOfBreach:
+          type: string
+        location:
+          type: string
+        likelyImpact:
+          type: string
+        detectedAt:
+          type: string
+          format: date-time
+        reportDeadline72h:
+          type: string
+          format: date-time
+        status:
+          type: string
+        notifiedBoard:
+          type: boolean
+        notifiedPrincipals:
+          type: boolean
+
+    AuditEntry:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        action:
+          type: string
+        details:
+          type: object
+
+security:
+  - entraIdOAuth: []

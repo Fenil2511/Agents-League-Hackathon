@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CompliYUG — DPDP & ISO Compliance Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ── Background ── -->
+<div class="mesh-bg">
+  <div class="mesh-blob blob-1"></div>
+  <div class="mesh-blob blob-2"></div>
+  <div class="mesh-blob blob-3"></div>
+  <div class="mesh-blob blob-4"></div>
+  <div class="mesh-layer"></div>
+</div>
+
+<!-- ── Sidebar ── -->
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="logo"><svg width="20" height="20" style="vertical-align:text-bottom;margin-right:6px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>CompliYUG</div>
+    <div class="tagline">DPDP &amp; ISO Compliance Copilot</div>
+  </div>
+  <div class="sidebar-nav">
+    <button class="nav-item active" data-tab="overview">
+      <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span> Overview
+    </button>
+    <button class="nav-item" data-tab="classify">
+      <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span> Classify Data
+    </button>
+    <button class="nav-item" data-tab="gap">
+      <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg></span> Gap Analysis
+    </button>
+    <button class="nav-item" data-tab="breach">
+      <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span> Breach Alerts
+    </button>
+    <button class="nav-item" data-tab="report">
+      <span class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></span> Audit Report
+    </button>
+  </div>
+  <div class="sidebar-footer">
+    Microsoft 365 · DPDP Act 2023<br>ISO/IEC 27001:2022
+  </div>
+</nav>
+
+<!-- ── Main ── -->
+<div class="main">
+  <div class="topbar">
+    <h1 id="page-title">Overview</h1>
+    <div class="badge-live">Live</div>
+  </div>
+
+  <div class="content">
+
+    <!-- ══════════ OVERVIEW ══════════ -->
+    <div id="tab-overview" class="tab-panel active">
+      <div class="kpi-grid" id="kpi-grid">
+        <div class="kpi-card primary">
+          <div class="kpi-label">Total Scans Run</div>
+          <div class="kpi-value" id="kpi-scans">—</div>
+          <div class="kpi-sub">M365 evidence scans</div>
+        </div>
+        <div class="kpi-card" id="kpi-risk-card">
+          <div class="kpi-label">Avg Risk Score</div>
+          <div class="kpi-value" id="kpi-risk">—</div>
+          <div class="kpi-sub" id="kpi-risk-level">Not yet scanned</div>
+        </div>
+        <div class="kpi-card" id="kpi-compliance-card">
+          <div class="kpi-label">Overall Compliance</div>
+          <div class="kpi-value" id="kpi-compliance">—</div>
+          <div class="kpi-sub">ISO 27001 + DPDP combined</div>
+        </div>
+        <div class="kpi-card" id="kpi-gaps-card">
+          <div class="kpi-label">Critical Gaps</div>
+          <div class="kpi-value" id="kpi-gaps">—</div>
+          <div class="kpi-sub">Require immediate action</div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:24px">
+        <div class="card">
+          <div class="card-header">Framework Compliance</div>
+          <div style="margin-top:16px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:600">ISO 27001:2022</span>
+              <span id="iso-pct-label" style="font-size:13px;font-weight:700;color:var(--primary)">—</span>
+            </div>
+            <div class="progress" style="margin-bottom:14px">
+              <div class="progress-bar" id="iso-bar" style="width:0%;background:var(--primary)"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:600">DPDP Act 2023</span>
+              <span id="dpdp-pct-label" style="font-size:13px;font-weight:700;color:var(--success)">—</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" id="dpdp-bar" style="width:0%;background:var(--success)"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Recent Activity</div>
+          <div id="activity-feed" style="margin-top:8px">
+            <div style="color:var(--text-muted);font-size:13px;padding:16px 0;text-align:center">No activity yet — run a scan or classify data to begin.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">Quick Actions</div>
+        <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="switchTab('classify')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Classify a Document</button>
+          <button class="btn btn-outline" onclick="switchTab('gap')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg> Run Gap Analysis</button>
+          <button class="btn btn-danger" onclick="switchTab('breach')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> File Breach Alert</button>
+          <button class="btn btn-outline" onclick="switchTab('report')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg> Generate Audit Report</button>
+          <button class="btn btn-outline btn-sm" onclick="loadDashboard()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21v-5h5"/></svg> Refresh</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ CLASSIFY ══════════ -->
+    <div id="tab-classify" class="tab-panel">
+      <div class="section-header">
+        <div>
+          <div class="section-title">PII Data Classification</div>
+          <div class="section-sub">Paste document content to detect PII and assign a compliance label</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="form-group">
+            <label>Document Content</label>
+            <textarea id="classify-text" placeholder="Paste email, document, or SharePoint content here…&#10;&#10;Example: Employee Ramesh Kumar, Aadhaar: 1234 5678 9012, PAN: ABCDE1234F, Email: ramesh@company.com, Salary: ₹85,000"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Source / Location (optional)</label>
+            <input id="classify-source" type="text" placeholder="e.g., HR SharePoint / Outlook / Teams" />
+          </div>
+          <div class="form-group">
+            <div class="checkbox-group">
+              <input type="checkbox" id="classify-teams" />
+              <label for="classify-teams" style="margin:0;text-transform:none;font-weight:500">Send Teams alert if PII found</label>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="classify-btn" onclick="runClassify()">🔍 Classify Document</button>
+        </div>
+
+        <div class="card" id="classify-result-card" style="display:none">
+          <div id="classify-result"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:20px" id="classify-table-wrap" style="display:none"></div>
+    </div>
+
+    <!-- ══════════ GAP ANALYSIS ══════════ -->
+    <div id="tab-gap" class="tab-panel">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Policy Gap Analysis</div>
+          <div class="section-sub">Analyse your policy documents against ISO 27001:2022 and DPDP Act 2023</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px">
+        <div class="form-group">
+          <label>Policy Document Content</label>
+          <textarea id="gap-text" style="min-height:160px" placeholder="Paste your organisation's policy, security standards, or procedure document here.&#10;&#10;Example: Our information security policy mandates MFA for all users. We have implemented Azure Sentinel for SIEM logging. Encryption using AES-256 is applied to all sensitive data at rest via Azure Key Vault. Access control is enforced through Entra ID RBAC with least privilege..."></textarea>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <button class="btn btn-primary" id="gap-btn" onclick="runGapAnalysis()">📋 Run Gap Analysis</button>
+          <div class="checkbox-group">
+            <input type="checkbox" id="gap-teams" />
+            <label for="gap-teams" style="margin:0;text-transform:none;font-weight:500">Alert Teams on critical gaps</label>
+          </div>
+        </div>
+      </div>
+
+      <div id="gap-result" style="display:none">
+        <div class="grid-3" id="gap-summary" style="margin-bottom:20px"></div>
+
+        <div style="margin-bottom:20px">
+          <div class="section-header">
+            <div class="section-title" style="font-size:14px">ISO 27001:2022 Controls</div>
+            <div>
+              <button class="btn btn-outline btn-sm" onclick="filterGap('iso','all')">All</button>
+              <button class="btn btn-outline btn-sm" onclick="filterGap('iso','gap')">Gaps only</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Control</th><th>Name</th><th>Domain</th><th>Status</th><th>Remediation</th></tr></thead>
+              <tbody id="iso-table"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-header">
+            <div class="section-title" style="font-size:14px">DPDP Act 2023 Requirements</div>
+            <div>
+              <button class="btn btn-outline btn-sm" onclick="filterGap('dpdp','all')">All</button>
+              <button class="btn btn-outline btn-sm" onclick="filterGap('dpdp','gap')">Gaps only</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Section</th><th>Requirement</th><th>Status</th><th>Remediation</th></tr></thead>
+              <tbody id="dpdp-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ BREACH ══════════ -->
+    <div id="tab-breach" class="tab-panel">
+      <div class="section-header">
+        <div>
+          <div class="section-title">DPDP Breach Notification</div>
+          <div class="section-sub">72-hour SLA — DPDP Act Section 40 / CERT-In Guidelines</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="alert alert-warning"><svg width="18" height="18" style="flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Under DPDP Act Section 40, breach must be reported to the Data Protection Board within <strong>72 hours</strong> of detection.</div>
+
+          <div class="form-group">
+            <label>Nature of Breach</label>
+            <input id="b-nature" type="text" placeholder="e.g., Unauthorized access to employee records" />
+          </div>
+          <div class="form-group">
+            <label>Extent of Breach</label>
+            <input id="b-extent" type="text" placeholder="e.g., 120 employee records compromised" />
+          </div>
+          <div class="form-group">
+            <label>Detection Timing</label>
+            <input id="b-timing" type="datetime-local" />
+          </div>
+          <div class="form-group">
+            <label>Location / System</label>
+            <input id="b-location" type="text" placeholder="e.g., HR SharePoint / Azure SQL Database" />
+          </div>
+          <div class="form-group">
+            <label>Likely Impact</label>
+            <input id="b-impact" type="text" placeholder="e.g., Identity misuse risk, financial fraud" />
+          </div>
+
+          <div style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px">Dispatch Options</div>
+          <div class="checkbox-group" style="margin-bottom:8px">
+            <input type="checkbox" id="b-teams" checked />
+            <label for="b-teams" style="margin:0;text-transform:none;font-weight:500">Send Teams alert</label>
+          </div>
+          <div class="checkbox-group" style="margin-bottom:8px">
+            <input type="checkbox" id="b-board" />
+            <label for="b-board" style="margin:0;text-transform:none;font-weight:500">Email Data Protection Board</label>
+          </div>
+          <div class="checkbox-group" style="margin-bottom:16px">
+            <input type="checkbox" id="b-principals" />
+            <label for="b-principals" style="margin:0;text-transform:none;font-weight:500">Email affected Data Principals</label>
+          </div>
+          <button class="btn btn-danger" id="breach-btn" onclick="runBreach()">🚨 File Breach Notification</button>
+        </div>
+
+        <div id="breach-result-card" style="display:none" class="card">
+          <div id="breach-result"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ REPORT ══════════ -->
+    <div id="tab-report" class="tab-panel">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Audit Report Generator</div>
+          <div class="section-sub">Generate a comprehensive compliance report from all scan and analysis activity</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-primary" onclick="loadReport()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg> Generate Report</button>
+          <a id="csv-download" class="btn btn-outline" href="/api/audit-report/csv" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download CSV</a>
+        </div>
+      </div>
+
+      <div id="report-placeholder" class="card" style="text-align:center;padding:48px">
+        <div style="margin-bottom:16px"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div style="font-size:16px;font-weight:600;margin-bottom:8px">No report generated yet</div>
+        <div style="color:var(--text-muted);margin-bottom:20px">Run scans and gap analyses first to populate the report with real data.</div>
+        <button class="btn btn-primary" onclick="loadReport()">Generate Now</button>
+      </div>
+
+      <div id="report-content" style="display:none">
+        <div class="kpi-grid" id="report-kpis" style="margin-bottom:24px"></div>
+
+        <div class="grid-2" style="margin-bottom:20px">
+          <div class="card" id="report-iso-summary"></div>
+          <div class="card" id="report-dpdp-summary"></div>
+        </div>
+
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-header">Top Recommendations</div>
+          <div id="report-recs" style="margin-top:12px"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Report Metadata</div>
+          <div id="report-meta" style="margin-top:12px;font-size:13px;color:var(--text-muted)"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script src="app.js"></script>
+</body>
+</html>
