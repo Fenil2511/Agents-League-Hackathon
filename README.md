@@ -48,7 +48,6 @@ An enterprise compliance agent that monitors Microsoft 365 content for DPDP Act 
 ## Architecture
 
 ![Architecture Diagram](Images/Architecture.png)
-![Architecture Diagram Alternative](Images/Architecture%2001.png)
 
 ### System Flow & Components
 
